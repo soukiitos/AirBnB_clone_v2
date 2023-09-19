@@ -15,11 +15,11 @@ class FileStorage:
         if cls:
             if isinstance(cls, str):
                 cls = eval(cls)
-                return {
-                        key: value
-                        for key, value in self.__objects.items()
-                        if isinstance(value, cls)
-                    }
+            return {
+                    key: value
+                    for key, value in self.__objects.items()
+                    if isinstance(value, cls)
+                }
         return self.__objects
 
     def new(self, obj):
