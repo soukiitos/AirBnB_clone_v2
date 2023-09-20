@@ -1,4 +1,3 @@
-
 #!/usr/bin/python3
 """ Place Module for HBNB project """
 from os import getenv
@@ -10,16 +9,14 @@ from models.amenity import Amenity
 import models
 
 
-
 place_amenity = Table("place_amenity", Base.metadata,
                       Column("place_id", String(60),
-                                 ForeignKey("places.id"),
-                                 primary_key=True,
-                                 nullable=False),
+                             ForeignKey("places.id"),
+                             primary_key=True,
+                             nullable=False),
                       Column("amenity_id", String(60),
-                                 ForeignKey("amenities.id"),
-                                 primary_key=True, nullable=False))
-
+                             ForeignKey("amenities.id"),
+                             primary_key=True, nullable=False))
 
 
 class Place(BaseModel, Base):
@@ -41,31 +38,20 @@ class Place(BaseModel, Base):
                              secondary="place_amenity",
                              viewonly=False)
 
-   # @property
-   # def amenities(self):
-   #     """ returns the list of Amenity instances based on
-   #         the attribute amenity_ids that contains all Amenity.id
-   #         linked to the Place.
-   #     """
-   #     amenities_list = []
-   #     for amenity in models.storage.all(Amenity).values():
-   #         if amenity.id in self.amenity_ids:
-   #             amenities_list.append(amenity)
-   #     return amenities_list
     if getenv("HBNB_TYPE_STORAGE", None) != "db":
+
         @property
         def amenities(self):
-            """Get/set linked Amenities."""
-            return [
-                amenity
-                for amenity in list(models.storage.all(Amenity).values())
-                if amenity.id in self.amenity_ids
-            ]
+            """ returns the list of Amenity instances based on
+                the attribute amenity_ids that contains all Amenity.id
+                linked to the Place.
+            """
+            amenities_list = []
+            for amenity in models.storage.all(Amenity).values():
+                if amenity.id in self.amenity_ids:
+                    amenities_list.append(amenity)
+            return amenities_list
 
-    # @amenities.setter
-    # def amenities(self, value):
-   #     if isinstance(self, value, Amenity):
-   #         self.amenity_ids.append(value.id)
         @amenities.setter
         def amenities(self, value):
             if isinstance(value, Amenity):
