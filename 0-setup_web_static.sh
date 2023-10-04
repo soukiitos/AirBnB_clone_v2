@@ -20,10 +20,13 @@ sudo mkdir -p /data/web_static/shared/
 sudo mkdir -p /data/web_static/releases/test/
 
 # Create a simple "Welcome" page
-echo "Welcome" > /data/web_static/releases/test/index.html
+#echo "Welcome" > /data/web_static/releases/test/index.html
+
+# Create a simple "Welcome" page with elevated privileges
+echo "Welcome" | sudo tee /data/web_static/releases/test/index.html >/dev/null
 
 # Set up a symbolic link for managing the current version
-ln -sf /data/web_static/releases/test/ /data/web_static/current
+sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
 
 # Ensure proper ownership for web server access
 sudo chown -R ubuntu:ubuntu /data/
