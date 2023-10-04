@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-
-# Script Description:
-# This Bash script automates the setup of an Nginx web server and directory structure for serving web content. It performs the following tasks:
+# This Bash script automates the setup of an Nginx web server and directory structure for serving web content. It performs the following t#asks:
 # 1. Checks if Nginx is installed and installs it if not.
 # 2. Creates directories to organize web application files.
 # 3. Generates a simple "Welcome" page in the test directory.
