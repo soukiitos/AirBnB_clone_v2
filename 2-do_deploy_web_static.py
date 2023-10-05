@@ -35,7 +35,10 @@ def do_pack():
     return result
 
 
+@runs_once
 def do_deploy(archive_path):
     '''Define do_deploy()'''
-    if os.path.exists(archive_path):
-        archived_file = archive_path[9:]
+    if not os.path.exists(archive_path):
+        return False
+    fn_ext = os.path.basename(archive_path)
+    fn_ext_not = os.path.splitext(fn_ext)
