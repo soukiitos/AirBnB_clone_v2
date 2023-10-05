@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 # Set up our web servers for the deployment of web_static
 
-if ! dpkg -l | grep -q nginx; then
-	sudo apt-get update
-	sudo apt-get install -y nginx
-fi
-
+apt-get update
+apt-get install -y nginx
+	
 mkdir -p /data/web_static/releases/test/
 mkdir -p /data/web_static/shared/
 echo "Holberton School" > /data/web_static/releases/test/index.html
@@ -33,4 +31,5 @@ printf %s "server {
 	internal;
 }
 }" > /etc/nginx/sites-available/default
-sudo service nginx restart
+
+service nginx restart
