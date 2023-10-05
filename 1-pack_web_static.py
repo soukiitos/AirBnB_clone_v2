@@ -23,9 +23,9 @@ def do_pack():
             curr_time.second
             )
     try:
-        print("The Packege web_staic to {}".format(result))
+        print("The Package web_staic to {}".format(result))
         local("tar -cvzf {} web_static".format(result))
-        s = os.stat(result).st_size
+        s = os.stat(result).st_s
         print("web_static packed: {} -> {} Bytes".format(result, s))
     except Exception:
         result = None
