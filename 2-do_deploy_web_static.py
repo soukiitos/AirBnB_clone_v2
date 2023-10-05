@@ -5,12 +5,12 @@ using the function do_deploy
 """
 from datetime import datetime
 import os
-from fabric.api import local, runs_once
+from fabric.api import *
 
 env.hosts = ["100.26.249.88", "100.26.50.67"]
+env.user = "ubuntu"
 
 
-@runs_once
 def do_pack():
     '''Define do_pack()'''
     local("mkdir -p versions")
@@ -23,10 +23,7 @@ def do_pack():
         return path_archived
 
 
-@runs_once
 def do_deploy(archive_path):
     '''Define do_deploy()'''
-    if not os.path.exists(archive_path):
-        return False
-    fn_ext = os.path.basename(archive_path)
-    fn_ext_not = os.path.splitext(fn_ext)
+    if os.path.exists(archive_path):
+        archived__file = archive_path[9:]
