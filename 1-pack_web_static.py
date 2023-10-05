@@ -14,7 +14,7 @@ def do_pack():
     if not os.path.isdir("versions"):
         os.mkdir("versions")
     curr_time = datetime.now()
-    result = "version/web_static_{}{}{}{}{}{}.tgz".format(
+    result = "versions/web_static_{}{}{}{}{}{}.tgz".format(
             curr_time.year,
             curr_time.month,
             curr_time.day,
