@@ -8,6 +8,7 @@ from datetime import datetime
 import os
 
 
+@runs_once
 def do_pack():
     '''Define do_pack()'''
     if not os.path.exists("versions"):
