@@ -13,16 +13,12 @@ env.user = "ubuntu"
 
 def do_pack():
     '''Define do_pack()'''
-    mkdir = "mkdir -p versions"
-    curr_time = datetime.now().strftime('%Y%m%d%H%M%S')
-    path_archived = "versions/web_static_{}.tgz".format(curr_time)
-    print("Packing web_static to {}".format(path_archived))
-    tgz_archive = local("{} && tar -cvzf {} web-static".format(
-        mkdir,
-        path_archived
-        ))
-    if tgz_archive.succeeded:
-        return path_archived
+    local("mkdir -p versions")
+    date = datetime.now().strftime("%Y%m%d%H%M%S")
+    archived_f_path = "versions/web_static_{}.tgz".format(date)
+    t_gzip_archive = local("tar -cvzf {} web_static".format(archived_f_path))
+    if t_gzip_archive.succeeded:
+        return archived_f_path
     else:
         return None
 
