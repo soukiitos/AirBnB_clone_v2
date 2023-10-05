@@ -1,55 +1,36 @@
 #!/usr/bin/env bash
-# This Bash script automates the setup of an Nginx web server and directory structure for serving web content. It performs the following t#asks:
-# 1. Checks if Nginx is installed and installs it if not.
-# 2. Creates directories to organize web application files.
-# 3. Generates a simple "Welcome" page in the test directory.
-# 4. Sets up a symbolic link to manage the current version of the web application.
-# 5. Configures Nginx to serve web content and handle specific URL paths.
-# 6. Restarts the Nginx service to apply the configuration.
+# Set up our web servers for the deployment of web_static
 
-if ! command -v nginx &> /dev/null; then
-    # Check if Nginx is installed; if not, update package list and install Nginx.
-    sudo apt-get update
-    sudo apt-get -y install nginx 
+if ! dpkg -l | grep -q nginx; then
+	sudo apt-get update
+	sudo apt-get install -y nginx
 fi
 
-# Directory structure for organizing web content
-sudo mkdir -p /data/web_static/shared/
-sudo mkdir -p /data/web_static/releases/test/
+mkdir -p /data/web_static/releases/test/
+mkdir -p /data/web_static/shared/
+echo "Holberton School" > /data/web_static/releases/test/index.html
+ln -sf /data/web_static/releases/test/ /data/web_static/current
 
-# Create a simple "Welcome" page
-#echo "Welcome" > /data/web_static/releases/test/index.html
+chown -R ubuntu /data/
+chgrp -R ubuntu /data/
 
-# Create a simple "Welcome" page with elevated privileges
-echo "Welcome" | sudo tee /data/web_static/releases/test/index.html >/dev/null
-
-# Set up a symbolic link for managing the current version
-sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
-
-# Ensure proper ownership for web server access
-sudo chown -R ubuntu:ubuntu /data/
-
-# Nginx server configuration
-echo "server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    root /var/www/html;
-    index yasin.html index.html index.nginx-debian.html;
-    add_header X-Served-By $(hostname);
-    location /hbnb_static {
-        alias /data/web_static/current/;
-        index index.html;
-    }
-    location /redirect_me {
-        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-    }
-    error_page 404 /notfound.html;
-    location = /notfound {
-        root /var/www/html;
-        internal;
-    }
-}" | sudo tee /etc/nginx/sites-available/default
-
-# Restart Nginx to apply the configuration
+printf %s "server {
+  listen 80 default_server;
+  listen [::]:80 default_server;
+  add_header X_Served_By $hostname;
+  root	/var/www/html;
+  index index.html index.htm;
+  location /hbnb_static {
+  	alias /data/web_static/current;
+	index index.html index.htm;
+}
+  location /redirect_me {
+  	return 301 http://github.com/soukiitos;
+}
+  error_page 404 /404.html;
+  location /404 {
+  	root /var/www/html;
+	internal;
+}
+}" > /etc/nginx/sites-available/default
 sudo service nginx restart
-
