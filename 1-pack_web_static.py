@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
 Generate a .tgz archive from the contents of the web_static folder
-of our AirBnB Clone repo, using the function do_pack
+of your AirBnB Clone repo, using the function do_pack
 """
 from fabric.api import local, runs_once
 from datetime import datetime
@@ -13,20 +13,20 @@ def do_pack():
     '''Define do_pack()'''
     if not os.path.isdir("versions"):
         os.mkdir("versions")
-    d_time = datetime.now()
-    output = "versions/web_static_{}{}{}{}{}{}.tgz".format(
-            d_time.year,
-            d_time.month,
-            d_time.day,
-            d_time.hour,
-            d_time.minute,
-            d_time.second
+    curr_time = datetime.now()
+    result = "version/web_static_{}{}{}{}{}{}.tgz".format(
+            curr_time.year,
+            curr_time.month,
+            curr_time.day,
+            curr_time.hour,
+            curr_time.minute,
+            curr_time.second
             )
     try:
-        print("Packing web_static to {}".format(output))
-        local("tar -cvzf {} web_static".format(output))
-        size = os.stat(output).st_size
-        print("web_static packed: {} -> {} Bytes".format(output, size))
+        print("The Packege web_staic to {}".format(result))
+        local("tar -cvzf {} web_static".format(result))
+        s = os.stat(result).st_size
+        print("web_static packed: {} -> {} Bytes".format(result, s))
     except Exception:
-        output = None
-    return output
+        result = None
+    return result
