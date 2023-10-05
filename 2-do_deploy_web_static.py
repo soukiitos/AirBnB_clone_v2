@@ -26,4 +26,4 @@ def do_pack():
 def do_deploy(archive_path):
     '''Define do_deploy()'''
     if os.path.exists(archive_path):
-        archived__file = archive_path[9:]
+        archived_file = archive_path[9:]
