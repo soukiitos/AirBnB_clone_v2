@@ -3,7 +3,7 @@
 Generate a .tgz archive from the contents of the web_static folder
 of our AirBnB Clone repo, using the function do_pack
 """
-from fabric import task
+from fabric.api import local, runs_once
 from datetime import datetime
 import os
 
