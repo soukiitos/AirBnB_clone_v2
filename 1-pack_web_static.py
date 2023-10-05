@@ -23,7 +23,7 @@ def do_pack():
             curr_time.second
             )
     try:
-        print("The Package web_staic to {}".format(result))
+        print("Packing web_static to {}".format(result))
         local("tar -cvzf {} web_static".format(result))
         s = os.stat(result).st_s
         print("web_static packed: {} -> {} Bytes".format(result, s))
