@@ -5,10 +5,9 @@ using the function do_deploy
 """
 from datetime import datetime
 import os
-from fabric.api import *
+from fabric.api import task, local, env, put, run
 
-env.hosts = ["100.26.249.88", "100.26.50.67"]
-env.user = "ubuntu"
+env.hosts = ['100.26.249.88', '100.26.50.67']
 
 
 def do_pack():
