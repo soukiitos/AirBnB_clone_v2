@@ -12,7 +12,7 @@ env.hosts = ['100.26.249.88', '100.26.50.67']
 
 def do_pack():
     '''Define do pack'''
-    d = datetime.now.strftime("%Y%m%d%H%M%S")
+    d = datetime.now().strftime("%Y%m%d%H%M%S")
     mkdir = "mkdir -p versions"
     path = "versions/web_static_{}.tgz".format(d)
     print("Packing web_static to {}".format(path))
