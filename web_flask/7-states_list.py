@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 
 @app.route('/states_list')
-def state_list():
+def states_list():
     '''Define state list'''
     path = '7-states_list.html'
     states = storage.all(State)
