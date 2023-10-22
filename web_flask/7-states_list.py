@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 '''Start a Flask web application'''
-from flask import Flask, render_template
 from models import storage
 from models.state import State
+from flask import Flask, render_template
 app = Flask(__name__)
 
 
@@ -11,8 +11,8 @@ def states_list():
     '''Define state list'''
     path = '7-states_list.html'
     states = storage.all(State)
-    sorted_state = sorted(states.values(), key=lambda state: state.name)
-    return render_template(path, sorted_state=sorted_state)
+    sorted_states = sorted(states.values(), key=lambda state: state.name)
+    return render_template(path, sorted_states=sorted_states)
 
 
 @app.teardown_appcontext
