@@ -55,9 +55,8 @@ def number_odd_or_even(n):
 def states_list():
     '''Define state list'''
     path = '7-states_list.html'
-    states = storage.all('State')
-    sorted_states = sorted(states.values(), key=lambda state: state.name)
-    return render_template(path, sorted_states=sorted_states)
+    states = storage.all('State').values()
+    return render_template(path, states=states)
 
 
 @app.teardown_appcontext
